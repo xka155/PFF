@@ -1,4 +1,5 @@
 import os
+import json
 
 from core.utils.config import get_config_value
 from core.data.db.connectors.mysql import MySQLConnecter
@@ -23,6 +24,8 @@ connector = MySQLConnecter(user, pswd, host, db)
 
 table = get_config_value(path, 'MySQLTABLES', 'Requery')
 
+columns = (get_config_value(path, 'REQUERY', 'Columns')).split(',')
+
 
 def add_requery(values):
     builder = SQLBuilder()
@@ -31,3 +34,17 @@ def add_requery(values):
     query, params = builder.build()
 
     connector.execute_query(query, params)
+    connector.commit()
+
+
+def get_requeries(orderby_date=False):
+    builder = SQLBuilder()
+    builder.select(columns, table)
+
+    if orderby_date:
+        builder.orderby('date')
+
+    query, params = builder.build()
+    data = connector.execute_query(query, params)
+
+    return data

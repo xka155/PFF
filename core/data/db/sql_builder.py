@@ -31,3 +31,20 @@ class SQLBuilder:
             self.params.append(v)
 
         return self
+
+    def select(self, columns, table):
+        self.query += "SELECT "
+
+        for i in range(0, len(columns) - 1):
+            self.query += columns[i] + ", "
+
+        self.query += columns[len(columns) - 1] + " "
+
+        self.query += "FROM " + table + " "
+
+        return self
+
+    def orderby(self, column):
+        self.query += "ORDER BY " + column
+
+        return self
