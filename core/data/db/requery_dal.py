@@ -1,5 +1,4 @@
 import os
-import json
 
 from core.utils.config import get_config_value
 from core.data.db.connectors.mysql import MySQLConnecter
@@ -7,7 +6,8 @@ from core.data.db.sql_builder import SQLBuilder
 
 '''
     Data access abstraction layer for the missed queries Table that is
-    updated when we receive a 5xx error code when querying the source.
+    updated when we receive a 5xx error code when querying the source, or if
+    we do not have an active internet connection.
     This table will periodically be used to requery and remove if successful
 
 '''
@@ -27,6 +27,7 @@ table = get_config_value(path, 'MySQLTABLES', 'Requery')
 columns = (get_config_value(path, 'REQUERY', 'Columns')).split(',')
 
 
+# Adds values (list of attributes) to table
 def add_requery(values):
     builder = SQLBuilder()
     builder.insert_into(table, values)
@@ -37,6 +38,7 @@ def add_requery(values):
     connector.commit()
 
 
+# Retrieve all requeries stored in the table. Option: order by date
 def get_requeries(orderby_date=False):
     builder = SQLBuilder()
     builder.select(columns, table)

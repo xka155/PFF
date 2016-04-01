@@ -1,11 +1,15 @@
 import urllib.request
-import urllib.error
+from urllib.error import URLError, HTTPError
+
+import core.data.db.requery_dal as requery_dal
 
 
 class DataSet:
     '''
     Class representing a set of data. 1-1 mapping with a table in a source.
     Held by a source object.
+    If query fails due to server error or no internet then we add to
+    the requery table.
 
     Params:
         table_name (enum): Name of table, configured in sourcesenum
@@ -37,7 +41,16 @@ class DataSet:
 
         query_url = set_url_params(query_url, args)
 
-        urllib.request.urlopen(query_url)
+        try:
+            urllib.request.urlopen(query_url)
+        except HTTPError as err:
+            if str(err.code)[0] == '5':
+                requery_dal.add_requery([])
+            else:
+                raise
+        except URLError:
+            requery_dal.add_requery([])
+
 
 '''
 Method that takes a dictionary and adds it to the provided url as k-v url

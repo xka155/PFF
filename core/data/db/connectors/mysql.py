@@ -42,5 +42,6 @@ class MySQLConnecter:
         if len(rows) > 0:
             return rows
 
+    # Saves an table insert
     def commit_query(self):
         self.database.commit()

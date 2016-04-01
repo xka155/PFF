@@ -53,12 +53,12 @@ class TestDataSet(unittest.TestCase):
         self.assertTrue(set_url_params(base_url, params_1) ==
                         'https:www.test.com/k=1')
 
-    def test_malformed_query_throws_httperror(self):
+    def test_malformed_query_throws_http_error(self):
         quandl = Quandl([TableNames.Q_WIKI_EOD])
         datafeed = DataFeed([quandl])
 
         self.assertRaises(HTTPError, datafeed.query_source, DataSource.QUANDL,
-                          TableNames.Q_WIKI_EOD, ticker="foo")
+                          TableNames.Q_WIKI_EOD, ticker="alkdsjasd")
 
 
 class TestQuandlConnection(unittest.TestCase):
