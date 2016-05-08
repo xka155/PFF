@@ -35,7 +35,7 @@ def add_requery(values):
     query, params = builder.build()
 
     connector.execute_query(query, params)
-    connector.commit()
+    connector.commit_query()
 
 
 # Retrieve all requeries stored in the table. Option: order by date

@@ -34,8 +34,11 @@ class TestDataSet(unittest.TestCase):
 
         params_1 = {'foo': 'bar', 'hello': 'world'}
 
-        self.assertTrue(set_url_params(base_url, params_1) ==
-                        'https:www.test.com/k=1&foo=bar&hello=world')
+        url = set_url_params(base_url, params_1)
+
+        # Dictionary keys does not maintain order necessarily
+        self.assertTrue(url == 'https:www.test.com/k=1&foo=bar&hello=world' or
+                        url == 'https:www.test.com/k=1&hello=world&foo=bar')
 
     def test_format_url_empty_value(self):
         base_url = "https:www.test.com/k=1"

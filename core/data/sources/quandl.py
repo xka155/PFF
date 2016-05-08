@@ -35,11 +35,17 @@ class Quandl:
         self._datasource = DataSource.QUANDL
 
         for table in tables:
-            self.datasets[table] = DataSet(table, self.base_url, self.key)
+            self.datasets[table] = DataSet(table, self.base_url, self.key,
+                                           self._datasource)
 
-    def query_table(self, table, args):
+    def query_table(self, table, full, args):
         ds = self.datasets[table]
-        data = ds.query(args)
+
+        if full:
+            data = ds.query_all(args)
+        else:
+            data = ds.query_ticker(args)
+
         return data
 
     @property

@@ -11,12 +11,14 @@ quandl = Quandl([TableNames.Q_WIKI_EOD, TableNames.Q_SF0_FUND,
                 TableNames.Q_YFINANCE])
 datafeed = DataFeed([quandl])
 
-# try:
-#     datafeed.query_source(DataSource.QUANDL,
-#                           TableNames.Q_WIKI_EOD, ticker='la')
-# except HTTPError as e:
-#     print("Fuck this connection")
-#     print(e)
+try:
+    datafeed.query_source(DataSource.QUANDL,
+                          TableNames.Q_WIKI_EOD, True, ticker='la')
+except HTTPError as e:
+    print("Fuck this connection")
+    print(e)
 
-# requery_dal.add_requery(['2016-04-01', 'shit', 'shit', 'shit', 'shit'])
+# requery_dal.add_requery(['2016-04-01', str({'ticker': "BA"}), "BA",
+#                          TableNames.Q_WIKI_EOD.value,
+#                          DataSource.QUANDL.value])
 # x = requery_dal.get_requeries(True)

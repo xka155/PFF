@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- Maps: Table Col -> Import data col index !-->
+<database name="Quandl">
+    <table name="WIKI">
+        <Date>0</Date>
+        <Open></Open>
+        <High></High>
+        <Low></Low>
+        <Close></Close>
+        <Volume></Volume>
+        <Ex-Dividend></Ex-Dividend>
+        <Split-Ratio></Split-Ratio>
+        <Adj-Open></Adj-Open>
+        <Adj-High></Adj-High>
+    </table>
+</database>

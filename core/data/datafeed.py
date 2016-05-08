@@ -31,8 +31,8 @@ class DataFeed:
         for s in datasources:
             self.sources[s.datasource] = s
 
-    def query_source(self, source, table, **kwargs):
+    def query_source(self, source, table, full=False, **kwargs):
         source = self.sources[source]
-        data = source.query_table(table, kwargs)
+        data = source.query_table(table, full, kwargs)
 
         return data

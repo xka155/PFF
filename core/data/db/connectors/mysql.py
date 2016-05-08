@@ -34,7 +34,7 @@ class MySQLConnecter:
 
     # Executes query. Args: query(str), params(tuple)
     def execute_query(self, query, params):
-        print(query)
+        print(params)
         self.cursor.execute(query, params)
 
         rows = self.cursor.fetchall()
